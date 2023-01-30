@@ -12,9 +12,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
-// const routes = require("./app/routes");
+const router = require("./app/routes");
 
-// app.use("/", routes);
+app.use("/", router);
 
 app.use((err, req, res, next) => {
     res.status(err.statusCode || 400).json({
