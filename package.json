@@ -1,13 +1,19 @@
 {
-  "name": "Incedo-API-Artists-Exporter",
+  "name": "incedo-api-artists-exporter",
   "version": "1.0.0",
   "description": "A RESTFul Api to retrieve artists and export them in a CSV file",
   "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=development nodemon index.js",
+    "start-prod": "NODE_ENV=production nodemon index.js",
+    "start-test": "NODE_ENV=staging nodemon index.js"
+  },
   "repository": "https://github.com/ThreadR-r/Incedo-Coding-Test.git",
   "author": "Elian (ThreadR) Freyermuth <elian.freyermuth@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-rate-limit": "^6.7.0"
   },
