@@ -14,7 +14,7 @@ router.use("/artists/", artists_route);
 router.use((req, res) => {
     res.status(200).json({
         success: true,
-        message: "Welcome in the API."
+        message: "Welcome to the API."
     });
 });
 
