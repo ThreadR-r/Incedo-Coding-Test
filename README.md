@@ -14,7 +14,7 @@ For development:
 
 ## Improvement possibilities:
 
-- A better management of error exception, returning an error code for instances, when the LastFM API is not available, or when the CSV File already exists.
+- A better management of error exceptions, returning an error code for instances, when the LastFM API is not available, or when the CSV File already exists.
 - A Prometheus monitoring implementation to monitor the health of the application and track some metrics like Saturation, Response Time, Error Rate and I/O Wait (important in this API).
 - Replace CSV Files with a database to prevent I/O Wait of disks.
 - Add a cache to handle repetitive and recent requests.
