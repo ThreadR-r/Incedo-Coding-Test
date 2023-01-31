@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const search_endpoint = require("./search");
-const SearchValidation = require.main.require("./app/validations/artists/search");
+const SearchValidation = require("../../validations/artists/search");
 router.post("/search", SearchValidation, search_endpoint);
 
 router.use("/", (req, res) => {

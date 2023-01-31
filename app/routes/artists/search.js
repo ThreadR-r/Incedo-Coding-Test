@@ -1,5 +1,5 @@
 const fs = require("fs");
-const config = require.main.require("./config/config");
+const config = require("../../../config/config");
 const { stringify } = require("csv-stringify");
 
 const LASTFM_API_URL = "http://ws.audioscrobbler.com/2.0/";
@@ -8,6 +8,13 @@ const lastfm_search_artists = async (artist_name) => {
     const res = await fetch(`${LASTFM_API_URL}?method=artist.search&artist=${artist_name}&api_key=${config.LASTFM_API_KEY}&format=json`);
     const data = await res.json();
 
+    if (res.status!==200) {
+        const err = new Error("Error fetching LastFM API");
+        err.errors = [data.message];
+        err.statusCode = res.status;
+        throw err;
+    }
+    
     const return_data = data.results.artistmatches.artist.map((artist) => {
         return {
             name: artist.name,
@@ -34,7 +41,7 @@ const lastfm_get_random_artists = async () => {
         data.push(...(await lastfm_search_artists(artist_name)));
     }
 
-    data = data.sort((a, b) => (-0.5 + Math.random()));
+    data = data.sort((a, b) => (-0.5 + Math.random())); // Shuffle artists. (Arbitrary Choice Made)
     
     return data;
 };
@@ -44,10 +51,7 @@ module.exports = async (req, res, next) => {
     try {
         data = (await lastfm_search_artists(req.body.artist_name)) || (await lastfm_get_random_artists());
     } catch (error) { // Could happen if LastFM API is down.
-        const err = new Error("Internal Server Error");
-        err.statusCode = 500;
-        err.errors = ["Internal server error fetching data"];
-        return next(err); //Usage of next because of this being an async function.
+        return next(error); //Usage of next because of this being an async function.
     }
 
     const stringifer = stringify({

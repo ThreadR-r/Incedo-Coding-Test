@@ -1,5 +1,5 @@
 const fsPromises = require("fs").promises;
-const config = require.main.require("./config/config");
+const config = require("../../../config/config");
 
 module.exports = async (req, res, next) => {
     errors = [];
