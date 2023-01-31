@@ -5,4 +5,7 @@ module.exports = {
 
     ARTISTS_SEARCH_RESULTS_OUTPUT_DIR: process.env.ARTISTS_SEARCH_RESULTS_OUTPUT_DIR || "./output/",
     ARTISTS_SEARCH_OVERRIDE_FILE: process.env.ARTISTS_SEARCH_OVERRIDE_FILE || false,
+
+    FALLBACK_RANDOM_ARTISTS_NAME: ["Polaris", "Of Mice & Men", "Rachmaninoff", "Dance Gavin Dance", "Nina", "Chopin"],
+    FALLBACK_NB_ARTISTS_FETCH: 3
 };
