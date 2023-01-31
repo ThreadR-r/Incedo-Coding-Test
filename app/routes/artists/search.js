@@ -23,7 +23,7 @@ const lastfm_search_artists = async (artist_name) => {
 module.exports = async (req, res) => {
     const data = await lastfm_search_artists(req.body.artist_name);
     const stringifer = stringify({
-        delimiter: ";",
+        delimiter: ", ",
         header: true,
         columns: {
             name: "Name",
