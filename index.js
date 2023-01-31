@@ -1,9 +1,17 @@
 console.info(`Running Incedo Artists exporter REST API in ${process.env.NODE_ENV} mode`);
 
-const config = require("./config/config");
-
 // Load environments variables according to the running mode. (prod, dev or staging)
-config.load_env();
+(function load_env() {
+    require("dotenv").config({
+        path: `.env.${process.env.NODE_ENV}`
+    });
+
+    if (!process.env.LASTFM_API_KEY) {
+        throw new Error("Critical LastFM API Key not given. Exiting...");
+    }
+})();
+
+const config = require("./config/config");
 
 const express = require("express");
 
