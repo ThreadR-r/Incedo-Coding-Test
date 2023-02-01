@@ -1,6 +1,7 @@
 const request = require("supertest");
 const assert = require("assert");
 const fsPromises = require("fs").promises;
+const fs = require("fs");
 
 /* -------------------------------------------------------------------------- */
 /*                                    Init                                    */
@@ -79,7 +80,8 @@ describe("GET api artists entry /artists/", function() {
 
         //Create the CSV file.
         try {
-            await fsPromises.open(`${config.ARTISTS_SEARCH_RESULTS_OUTPUT_DIR}${csv_output}`, "w");
+            const file = await fsPromises.open(`${config.ARTISTS_SEARCH_RESULTS_OUTPUT_DIR}${csv_output}`, "w");
+            file.close();
         } catch (error) {}
 
         config.ARTISTS_SEARCH_OVERRIDE_FILE = false;
@@ -107,7 +109,8 @@ describe("GET api artists entry /artists/", function() {
 
         //Create the CSV file.
         try {
-            await fsPromises.open(`${config.ARTISTS_SEARCH_RESULTS_OUTPUT_DIR}${csv_output}`, "w");
+            const file = await fsPromises.open(`${config.ARTISTS_SEARCH_RESULTS_OUTPUT_DIR}${csv_output}`, "w");
+            file.close();
         } catch (error) {}
 
         config.ARTISTS_SEARCH_OVERRIDE_FILE = true;
@@ -161,6 +164,8 @@ describe("GET api artists entry /artists/", function() {
         const file_content = await fsPromises.readFile(file, {encoding: "utf-8"});
 
         assert(file_content.split(/\r?\n/).length>=10); //The file has more than 10 lines (9 artists).
+
+        file.close();
 
         /* -------------------------------------------------------------------------- */
 
