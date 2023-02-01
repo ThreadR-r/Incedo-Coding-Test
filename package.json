@@ -7,7 +7,8 @@
     "start": "NODE_ENV=development nodemon index.js",
     "start-prod": "NODE_ENV=production node index.js",
     "start-test": "NODE_ENV=staging nodemon index.js",
-    "test": "NODE_ENV=staging mocha --timeout 3000"
+    "test": "NODE_ENV=staging mocha --timeout 10000",
+    "doc": "jsdoc -d ./doc/ -r README.md index.js app/"
   },
   "repository": "https://github.com/ThreadR-r/Incedo-Coding-Test.git",
   "author": "Elian (ThreadR) Freyermuth <elian.freyermuth@gmail.com>",
@@ -21,6 +22,7 @@
     "node-fetch": "^3.3.0"
   },
   "devDependencies": {
+    "jsdoc": "^4.0.0",
     "mocha": "^10.2.0",
     "nodemon": "^2.0.20",
     "supertest": "^6.3.3"

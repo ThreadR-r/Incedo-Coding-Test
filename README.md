@@ -12,6 +12,9 @@ For this project, I have made choices when it comes to libraries:
 For development:
 - mocha and supertest: test frameworks.
 
+For documentation:
+- JSDoc
+
 ## Improvement possibilities:
 
 - A better management of error exceptions, returning an error code for instances, when the LastFM API is not available, or when the CSV File already exists.

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>Incedo Services GmbH Backend Challenge</h1>
+<h2>Description</h2>
+<p>For this project, I have made choices when it comes to libraries:</p>
+<ul>
+<li>ExpressJS: powerful and popular application web framework for NodeJS.</li>
+<li>csv-stringify: this library allows to stringify JS dictionaries to CSV.</li>
+<li>dotenv: manage different .env according to the environment.</li>
+<li>express-rate-limit: allows to simply limit repeated requests to prevent abuse.</li>
+<li>cors</li>
+</ul>
+<p>For development:</p>
+<ul>
+<li>mocha and supertest: test frameworks.</li>
+</ul>
+<h2>Improvement possibilities:</h2>
+<ul>
+<li>A better management of error exceptions, returning an error code for instances, when the LastFM API is not available, or when the CSV File already exists.</li>
+<li>A Prometheus monitoring implementation to monitor the health of the application and track some metrics like Saturation, Response Time, Error Rate and I/O Wait (important in this API).</li>
+<li>Replace CSV Files with a database to prevent I/O Wait of disks.</li>
+<li>Add a cache to handle repetitive and recent requests.</li>
+<li>And probably more.</li>
+</ul>
+<h2>Installation (Production)</h2>
+<p>This API has a docker version.</p>
+<h3>Unix</h3>
+<ul>
+<li>Make sure you have <code>Yarn/NPM</code> and <code>NodeJS</code> installed</li>
+</ul>
+<p>The commands below clone this repository and install production dependencies</p>
+<pre class="prettyprint source lang-shell"><code>git clone https://github.com/ThreadR-r/Incedo-Coding-Test
+cd Incedo-Coding-Test/
+
+# install only prod dependencies
+# Yarn
+yarn install --production=true --frozen-lockfile
+
+# NPM
+npm ci --only=prod
+</code></pre>
+<p>To run the API, execute the following command:</p>
+<pre class="prettyprint source lang-shell"><code># Yarn
+yarn start-prod
+
+# NPM
+npm run start-prod
+</code></pre>
+<h3>Docker (preferred)</h3>
+<h4>Build the image</h4>
+<p>To build the docker image, go to the project's root and execute the following command:</p>
+<pre class="prettyprint source lang-shell"><code>docker build -t threadr/icedo-api:latest -f docker/Dockerfile .
+</code></pre>
+<h4>Running the image</h4>
+<pre class="prettyprint source lang-shell"><code>docker run --rm -it --init --name icedo-api-artists-search -p &quot;25581:8080&quot; -v &quot;${PWD}/api_csv_output:/incedo_api/output&quot; threadr/icedo-api
+</code></pre>
+<p>The API is exposed over the HTTP port <code>8080</code> and the CSV output files are generated in <code>/incedo_api/output</code> container's folder.</p>
+<h3>Configuration</h3>
+<p>Some parameters let you configure the API through environment variables as described below:</p>
+<table>
+<thead>
+<tr>
+<th>PARAMETER</th>
+<th>DEFAULT VALUE</th>
+<th>DESCRIPTION</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PORT</td>
+<td>8080</td>
+<td>The HTTP Port where the API is listening to</td>
+</tr>
+<tr>
+<td>HOSTNAME</td>
+<td>127.0.0.1</td>
+<td>The hostname where the API is listening to</td>
+</tr>
+<tr>
+<td>LASTFM_API_KEY</td>
+<td>PERSONAL API KEY</td>
+<td>The LastFM API Key to access the <strong>artist.search</strong> endpoint (my personal API key is included in this specific project)</td>
+</tr>
+<tr>
+<td>ARTISTS_SEARCH_RESULTS_OUTPUT_DIR</td>
+<td>./output/</td>
+<td>The output directory where the CSV files will be generated.</td>
+</tr>
+<tr>
+<td>ARTISTS_SEARCH_OVERRIDE_FILE</td>
+<td>false</td>
+<td>Decides whether or not CSV files should be override if they already exist (default to false for &quot;security&quot; reasons)</td>
+</tr>
+</tbody>
+</table>
+<h4>Example</h4>
+<p>Running with a personnal LastFM API key</p>
+<pre class="prettyprint source lang-shell"><code>docker run --rm -it --init --name icedo-api-artists-search -p &quot;25581:8080&quot; -v &quot;${PWD}/api_csv_output:/incedo_api/output&quot; -e LASTFM_API_KEY=&quot;my_personal_key&quot; threadr/icedo-api
+</code></pre>
+<h2>Development</h2>
+<p>To create the development environment, execute the following commands:</p>
+<pre class="prettyprint source lang-shell"><code>git clone https://github.com/ThreadR-r/Incedo-Coding-Test
+cd Incedo-Coding-Test/
+
+# install only prod dependencies
+# Yarn
+yarn install
+
+# NPM
+npm install
+</code></pre>
+<p>To run the API in development mode, execute the following command:</p>
+<pre class="prettyprint source lang-shell"><code># Yarn
+yarn start
+
+# NPM
+npm run start
+</code></pre>
+<h2>Test</h2>
+<p>Simple test units are implemented in order to test the API endpoint and be ready for CI/CD.
+After the preparation of the development environment, run the following command to test the API.</p>
+<pre class="prettyprint source lang-shell"><code># Yarn
+yarn test
+
+# NPM
+npm run test
+</code></pre></article>
+    </section>
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>app/controllers/search.controller.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Search controller managing the endpoint /artists/search</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Elian (ThreadR) Freyermuth</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="controllers_search.controller.js.html">controllers/search.controller.js</a>, <a href="controllers_search.controller.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>app/middlewares/artists/search.js</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">Search middleware to validate the request requirements.</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Elian (ThreadR) Freyermuth</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="middlewares_artists_search.js.html">middlewares/artists/search.js</a>, <a href="middlewares_artists_search.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#SearchMiddleware">SearchMiddleware</a></li><li><a href="global.html#lastfm_get_random_artists">lastfm_get_random_artists</a></li><li><a href="global.html#lastfm_search_artists">lastfm_search_artists</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Wed Feb 01 2023 11:14:49 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
