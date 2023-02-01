@@ -1,5 +1,5 @@
 const fs = require("fs");
-const config = require("../../../config/config");
+const config = require("../../config/config");
 const { stringify } = require("csv-stringify");
 
 const LASTFM_API_URL = "http://ws.audioscrobbler.com/2.0/";

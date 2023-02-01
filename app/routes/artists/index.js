@@ -2,8 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
-const search_endpoint = require("./search");
-const SearchValidation = require("../../validations/artists/search");
+const search_endpoint = require("../../controllers/search.controller");
+const SearchValidation = require("../../middlewares/artists/search");
 router.post("/search", SearchValidation, search_endpoint);
 
 router.use("/", (req, res) => {
