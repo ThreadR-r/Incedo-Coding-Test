@@ -19,6 +19,11 @@ For documentation:
 
 An simple HTML documentation is available in the `./doc/` folder.
 
+To generate the doc again, execute the next command at the project's root:
+```shell
+yarn doc
+```
+
 ## Improvement possibilities:
 
 - A better management of error exceptions, returning an error code for instances, when the LastFM API is not available, or when the CSV File already exists.
@@ -46,7 +51,7 @@ cd Incedo-Coding-Test/
 yarn install --production=true --frozen-lockfile
 
 # NPM
-npm ci --only=prod
+npm install --omit=dev
 ```
 
 To run the API, execute the following command:
@@ -62,7 +67,7 @@ npm run start-prod
 
 #### Build the image
 
-To build the docker image, go to the project's root and execute the following command:
+To build the docker image, after cloning this repo, go to the project's root and execute the following command:
 
 ```shell
 docker build -t threadr/icedo-api:latest -f docker/Dockerfile .
