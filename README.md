@@ -104,7 +104,7 @@ To create the development environment, execute the following commands:
 git clone https://github.com/ThreadR-r/Incedo-Coding-Test
 cd Incedo-Coding-Test/
 
-# install only prod dependencies
+# install all dependencies
 # Yarn
 yarn install
 
